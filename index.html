@@ -1,0 +1,20 @@
+<!DOCTYPE html>  
+<html ng-app="app">  
+<head>  
+    <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>2048</title>
+        <link rel="stylesheet" href="2048.css">
+        <script src="2048.js"></script>   
+</head>  
+    <body>
+        <div id="board">
+        </div>
+    </body>
+<h1 ng-controller="HelloWorldCtrl">{{message}}</h1>
+</html>
+<script src="https://code.angularjs.org/1.6.9/angular.js"></script>
+<script>  
+    angular.module("app", []).controller("HelloWorldCtrl", function($scope) {  
+    } )
+</script> 
