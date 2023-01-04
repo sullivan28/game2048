@@ -1,12 +1,3 @@
-#board {
-    width: 400px;
-    height: 400px;
-    
-    margin: 0 auto;
-    display: flex;
-    flex-wrap: wrap;
-}
-
 .box {
     width: 90px;
     height: 90px;
@@ -17,4 +8,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.centralizar{
+    max-width: 450px;
+    margin-right: auto;
+    margin-left: auto;
 }
