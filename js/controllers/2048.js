@@ -12,22 +12,27 @@ $scope.setGame = function () {
         [0, 0, 0, 0],
         [0, 0, 0, 0]
     ]
-    //criando numero 2
-    $scope.setTwo();
-    $scope.setTwo();
+
+     //criando numero 2
+     $scope.setTwo();
+     $scope.setTwo();
+
+    for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < columns; c++){
+            let box = $scope.board;
+            box.id = r.toString() + "-" + c.toString();
+            let num = $scope.board[r][c];
+            $scope.updateBox(box, num)
+        } 
+    }
+   
 
 }
 
-
 $scope.updateBox = function(box, num) {
     box.innerText = "";
-    box.classList.value = ""; 
-    box.classList.add("box");
     if (num > 0) {
-        box.innerText = num.toString();
-        if (num <= 4096) {
-            box.classList.add("x"+num.toString());
-        }               
+        box.innerText = num.toString();               
     }
 }
 
@@ -57,31 +62,30 @@ $scope.filterZero = function(row){
 }
 
 $scope.slide = function(row) {
-    row = filterZero(row);
+    row = $scope.filterZero(row);
     for (let i = 0; i < row.length-1; i++){
         if (row[i] == row[i+1]) {
             row[i] *= 2;
             row[i+1] = 0;         
         }
     } 
-    row = filterZero(row); 
+    row = $scope.filterZero(row); 
     //addicona zeros
     while (row.length < columns) {
         row.push(0);
     } 
-    return row;f
+    return row;
 }
 
 //deslizar para a esquerda jogada
 $scope.slideLeft = function() {
     for (let r = 0; r < rows; r++) {
-        let row = board[r];
+        let row = $scope.board[r];
         row = $scope.slide(row);
-        board[r] = row;
+        $scope.board[r] = row;
         for (let c = 0; c < columns; c++){
-            let box = document.getElementById(r.toString() + "-" + c.toString());
-            let num = board[r][c];
-            $scope.updateBox(box, num);
+            let num = $scope.board[r][c];
+            $scope.updateBox($scope.board, num);
         }
     }
 }
@@ -89,13 +93,12 @@ $scope.slideLeft = function() {
 //deslizar para a direita jogada
 $scope.slideRight  = function() {
     for (let r = 0; r < rows; r++) {
-        let row = board[r];         
+        let row = $scope.board[r];         
         row.reverse();             
-        row = $scope.slide(row)            
-        board[r] = row.reverse();   
+        row = $scope.slide(row);            
+        $scope.board[r] = row.reverse();   
         for (let c = 0; c < columns; c++){
-            let box = document.getElementById(r.toString() + "-" + c.toString());
-            let num = board[r][c];
+            let num = $scope.board[r][c];
             $scope.updateBox(box, num);
         }
     }
@@ -104,11 +107,10 @@ $scope.slideRight  = function() {
 //deslizar para cima jogada
 $scope.slideUp = function() {
     for (let c = 0; c < columns; c++) {
-        let row = [board[0][c], board[1][c], board[2][c], board[3][c]];
+        let row = [$scope.board[0][c], $scope.board[1][c], $scope.board[2][c], $scope.board[3][c]];
         row = $scope.slide(row);
         for (let r = 0; r < rows; r++){
             board[r][c] = row[r];
-            let box = document.getElementById(r.toString() + "-" + c.toString());
             let num = board[r][c];
             $scope.updateBox(box, num);
         }
@@ -118,14 +120,13 @@ $scope.slideUp = function() {
 //deslizar para baixo jogada
 $scope.slideDown = function() {
     for (let c = 0; c < columns; c++) {
-        let row = [board[0][c], board[1][c], board[2][c], board[3][c]];
+        let row = [$scope.board[0][c], $scope.board[1][c], $scope.board[2][c], $scope.board[3][c]];
         row.reverse();
         row = $scope.slide(row);
         row.reverse();
         for (let r = 0; r < rows; r++){
-            board[r][c] = row[r];
-            let box = document.getElementById(r.toString() + "-" + c.toString());
-            let num = board[r][c];
+            $scope.board[r][c] = row[r];
+            let num = $scope.board[r][c];
             $scope.updateBox(box, num);
         }
     }
@@ -149,7 +150,6 @@ $scope.setTwo = function() {
 }
 
 $scope.hasEmptyBox = function() {
-    let count = 0;
     for (let r = 0; r < rows; r++) {
         for (let c = 0; c < columns; c++) {
             if ($scope.board[r][c] == 0) { //pelo menos um zero no tabuleiro
@@ -159,5 +159,4 @@ $scope.hasEmptyBox = function() {
     }
     return false;
 }
-
 });
