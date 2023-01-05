@@ -20,16 +20,7 @@ angular.module('ngGame', []).controller('ngGameController', function ($scope) {
             for (let c = 0; c < columns; c++) {
                 let box = $scope.board;
                 box.id = r.toString() + "-" + c.toString();
-                let num = $scope.board[r][c];
-                $scope.updateBox(box, num)
             }
-        }
-    }
-
-    $scope.updateBox = function (box, num) {
-        box.innerText = "";
-        if (num > 0) {
-            box.innerText = num.toString();
         }
     }
 
@@ -80,10 +71,6 @@ angular.module('ngGame', []).controller('ngGameController', function ($scope) {
             let row = $scope.board[r];
             row = $scope.slide(row);
             $scope.board[r] = row;
-            for (let c = 0; c < columns; c++) {
-                let num = $scope.board[r][c];
-                $scope.updateBox($scope.board, num);
-            }
         }
     }
 
@@ -94,10 +81,6 @@ angular.module('ngGame', []).controller('ngGameController', function ($scope) {
             row.reverse();
             row = $scope.slide(row);
             $scope.board[r] = row.reverse();
-            for (let c = 0; c < columns; c++) {
-                let num = $scope.board[r][c];
-                $scope.updateBox($scope.board, num);
-            }
         }
     }
 
@@ -106,11 +89,6 @@ angular.module('ngGame', []).controller('ngGameController', function ($scope) {
         for (let c = 0; c < columns; c++) {
             let row = [$scope.board[0][c], $scope.board[1][c], $scope.board[2][c], $scope.board[3][c]];
             row = $scope.slide(row);
-            for (let r = 0; r < rows; r++) {
-                $scope.board[r][c] = row[r];
-                let num = $scope.board[r][c];
-                $scope.updateBox($scope.board, num);
-            }
         }
     }
 
@@ -121,11 +99,6 @@ angular.module('ngGame', []).controller('ngGameController', function ($scope) {
             row.reverse();
             row = $scope.slide(row);
             row.reverse();
-            for (let r = 0; r < rows; r++) {
-                $scope.board[r][c] = row[r];
-                let num = $scope.board[r][c];
-                $scope.updateBox($scope.board, num);
-            }
         }
     }
 
